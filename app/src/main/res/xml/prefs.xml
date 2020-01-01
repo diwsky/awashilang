@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <EditTextPreference
+        android:key="Track"
+        android:title="Lacak Smartphone Anda"
+        android:defaultValue="track"
+        />
+
+    <EditTextPreference
+        android:key="Alert"
+        android:title="Nyalakan alarm"
+        android:defaultValue="alert"
+        />
+
+    <EditTextPreference
+        android:key="Lock"
+        android:title="Kunci Smartphone Anda"
+        android:defaultValue="lock"
+        />
+
+    <EditTextPreference
+        android:key="Alock"
+        android:title="Kunci dan bunyikan Smartphone anda"
+        android:defaultValue="alock"
+        />
+
+    <EditTextPreference
+        android:key="Inbox"
+        android:title="Dapatkan pesan masuk terbaru"
+        android:defaultValue="inbox"
+        />
+
+    <EditTextPreference
+        android:key="Sent"
+        android:title="Dapatkan pesan terkirim terbaru"
+        android:defaultValue="sent"
+        />
+
+    <EditTextPreference
+        android:key="Capture"
+        android:title="Ambil foto kamera depan"
+        android:defaultValue="capture"
+        />
+
+    <EditTextPreference
+        android:key="Battery"
+        android:title="Status daya smartphone anda"
+        android:defaultValue="battery"
+        />
+
+    <EditTextPreference
+        android:key="Incoming"
+        android:title="Dapatkan panggilan masuk terbaru"
+        android:defaultValue="incoming"
+        />
+
+    <EditTextPreference
+        android:key="Outgoing"
+        android:title="Dapatkan panggilan keluar terbaru"
+        android:defaultValue="outgoing"
+        />
+
+    <EditTextPreference
+        android:key="Missed"
+        android:title="Dapatkan panggilan tak terjawab terbaru"
+        android:defaultValue="missed"
+        />
+
+    <EditTextPreference
+        android:key="Hide"
+        android:title="Sembunyikan aplikasi AwasHilang! di smartphone Anda"
+        android:defaultValue="hide"
+        />
+
+</PreferenceScreen>

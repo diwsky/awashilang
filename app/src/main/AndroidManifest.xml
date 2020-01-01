@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.diwangkoro.awashilang"
+    android:installLocation="internalOnly">
+
+    <permission android:name="com.diwangkoro.awashilang.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
+    <uses-permission android:name="com.javapapers.android.androidlocationmaps.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="com.diwangkoro.awashilang.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+
+    <uses-feature android:name="android.hardware.camera.front"
+        android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus"
+        android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.flash"
+        android:required="false"/>
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/tes"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!--/////////////////////ACTIVITY//////////////////////-->
+        <!--Activity splash atau opening -->
+        <activity android:name=".Splash"></activity>
+        <activity-alias
+            android:name=".Splash"
+            android:targetActivity=".Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <!---Activity Login dan register-->
+        <activity
+            android:name=".LoginPage"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".RegisterPage"
+            android:theme="@style/AppTheme"></activity>
+
+        <!---Activity Main atau menu utama-->
+        <activity android:name=".Settings">
+            <intent-filter>
+                <action android:name="com.diwangkoro.awashilang.MENU" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+            </intent-filter>
+        </activity>
+
+        <!---Activity Fitur Alerting -->
+        <activity
+            android:name=".Alerting.MainAlerting"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+
+        <!--Activity ubah perintah SMS-->
+        <activity android:name=".Preferences">
+            <intent-filter>
+                <action android:name=".Preferences"/>
+            </intent-filter>
+        </activity>
+
+        <!--Activity Dialog Alarm Charger-->
+        <activity
+            android:name=".Alerting.AlarmChargerDialog"
+            android:theme="@style/Theme.Transparent">
+        </activity>
+
+
+        <!--/////////////////////GCM//////////////////////-->
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.diwangkoro.awashilang.gcm" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name=".gcm.MyGcmListenerServiceAlarm"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.diwangkoro.awashilang.gcm.MyInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+
+        <!--Receiver Fitur Monitoring -->
+        <receiver
+            android:name=".Alerting.M_RecAlarmCharger"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="999">
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <!--/////////////////////RECEIVER//////////////////////-->
+        <!--Receiver general SMS-->
+        <receiver
+            android:name=".Receiver_SMS"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter android:priority="999">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <!--Receiver Boot-->
+        <receiver android:name=".AutoStart">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!---Receiver Fitur Locking -->
+        <receiver
+            android:name=".Locking.myAdmin"
+            android:permission="android.permission.BIND_DEVICE_ADMIN"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"></action>
+                <action android:name="android.app.action.ACTION_DEVICE_ADMIN_DISABLE_REQUESTED" />
+                <action android:name="android.app.action.ACTION_DEVICE_ADMIN_DISABLED" />
+                <action android:name="android.app.action.ACTION_PASSWORD_CHANGED" />
+                <action android:name="android.app.action.ACTION_PASSWORD_FAILED" />
+                <action android:name="android.app.action.ACTION_PASSWORD_SUCCEEDED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/policies">
+            </meta-data>
+        </receiver>
+
+        <!---Receiver & Activity Fitur Hidden -->
+        <receiver android:name=".Hidden.ReceiverHidden"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+                <action android:name="android.intent.action.PACKAGE_CHANGED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <!--/////////////////////SERVICES//////////////////////-->
+        <!--Service general aplikasi-->
+        <service android:name=".Service_General"></service>
+        <service android:name=".AutoStartIntentService"
+            android:exported="true"
+            android:enabled="true"></service>
+
+        <!--Register Service Alarm-->
+        <service android:name=".Alerting.Service_Alarm"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+    </application>
+</manifest>
